@@ -5,9 +5,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeBtn = document.getElementById('close-btn');
     const bgVideo = document.getElementById('bg-video');
     const mouseMoveStrength = 50; // How much the background moves with the mouse
+    const titleTrigger = document.getElementById('title-trigger');
+    let activeLink = null;
+    let isTouchDevice = false;
+
+    // Detect touch device
+    window.addEventListener('touchstart', function onFirstTouch() {
+        isTouchDevice = true;
+        window.removeEventListener('touchstart', onFirstTouch);
+    });
 
     // Feature navigation and modal handling
     featureLinks.forEach(link => {
+        // Handle click/touch for modal
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const targetId = link.getAttribute('data-target');
@@ -21,7 +31,38 @@ document.addEventListener('DOMContentLoaded', () => {
                 detailsModal.classList.add('active');
             }
         });
+
+        // Handle touch for glitch effect
+        if ('ontouchstart' in window) {
+            link.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                if (activeLink) {
+                    activeLink.classList.remove('active');
+                }
+                link.classList.add('active');
+                activeLink = link;
+
+                // Remove active class after animation
+                setTimeout(() => {
+                    link.classList.remove('active');
+                    activeLink = null;
+                }, 300);
+            });
+        }
     });
+
+    // Title trigger touch handling
+    if ('ontouchstart' in window) {
+        titleTrigger.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            titleTrigger.classList.add('active');
+
+            // Remove active class after animation
+            setTimeout(() => {
+                titleTrigger.classList.remove('active');
+            }, 300);
+        });
+    }
 
     closeBtn.addEventListener('click', () => {
         detailsModal.classList.remove('active');

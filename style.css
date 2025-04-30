@@ -427,10 +427,11 @@ body {
         right: 0.8rem;
     }
     .logo {
-        left: 1rem;
+        top: 0.5rem;
+        left: 0.1rem;
     }
     .logo img {
-        height: 1.5rem;
+        height: 5rem;
     }
     .info-card {
         max-width: 250px;
@@ -458,7 +459,7 @@ body {
         font-size: 0.9rem;
      }
     .logo img {
-        height: 1.2rem;
+        height: 5rem;
     }
     .feature-nav a:hover {
         transform: translateX(5px);
@@ -489,4 +490,31 @@ body {
 
 .container {
     z-index: 10; /* Ensure this is above the background-layers */
+}
+
+/* Mobile Touch Specific Styles */
+@media (hover: none) {
+    .feature-nav a.active {
+        color: var(--accent-color);
+        transform: translateX(10px);
+        animation: glitch 0.3s infinite;
+    }
+
+    .top-title.active::before {
+        opacity: 1;
+        animation: glitch 0.3s infinite;
+        color: var(--accent-color);
+    }
+
+    .top-title.active {
+        color: transparent;
+    }
+
+    .top-title.active .info-card {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0s;
+        pointer-events: auto;
+    }
 }
