@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     link.classList.add('show-card');
                     // Trigger click event after showing card
                     link.click();
-                }, 1000);
+                }, 500);
             });
         }
     });
