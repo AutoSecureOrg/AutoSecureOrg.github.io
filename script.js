@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
             touchTimeout = setTimeout(() => {
                 titleTrigger.classList.remove('glitch-only');
                 titleTrigger.classList.add('show-card');
-            }, 1000);
+            }, 500);
         });
 
         // Add touch event to close info card when touching outside
