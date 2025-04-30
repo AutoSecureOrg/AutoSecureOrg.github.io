@@ -3,89 +3,79 @@ document.addEventListener('DOMContentLoaded', () => {
     const detailsModal = document.getElementById('details-modal');
     const detailsContentContainer = document.getElementById('details-content-container');
     const closeBtn = document.getElementById('close-btn');
-    // const container = document.querySelector('.container'); // No longer needed for class toggling
+    const bgVideo = document.getElementById('bg-video');
+    const mouseMoveStrength = 50; // How much the background moves with the mouse
 
+    // Feature navigation and modal handling
     featureLinks.forEach(link => {
         link.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevent default anchor behavior
-
+            e.preventDefault();
             const targetId = link.getAttribute('data-target');
             const sourceContentElement = document.getElementById(targetId);
 
             if (sourceContentElement) {
-                // Clone the source content to avoid moving the original hidden div
                 const clonedContent = sourceContentElement.cloneNode(true);
-                clonedContent.style.display = 'block'; // Ensure the cloned content is visible
-
-                detailsContentContainer.innerHTML = ''; // Clear previous content
+                clonedContent.style.display = 'block';
+                detailsContentContainer.innerHTML = '';
                 detailsContentContainer.appendChild(clonedContent);
-
                 detailsModal.classList.add('active');
-                // container.classList.add('panel-active'); // Remove this line
-            } else {
-                console.error(`Content for target ID '${targetId}' not found.`);
             }
         });
     });
 
     closeBtn.addEventListener('click', () => {
         detailsModal.classList.remove('active');
-       // container.classList.remove('panel-active'); // Remove this line
-        // Optional: Clear content after transition for performance
-         setTimeout(() => {
-             if (!detailsModal.classList.contains('active')) {
-                 detailsContentContainer.innerHTML = '';
-             }
-         }, 400); // Match CSS transition duration
+        setTimeout(() => {
+            if (!detailsModal.classList.contains('active')) {
+                detailsContentContainer.innerHTML = '';
+            }
+        }, 400);
     });
 
-    // Close modal if clicking on the overlay background
     detailsModal.addEventListener('click', (e) => {
-        // Check if the click is directly on the modal overlay, not the content card
         if (e.target === detailsModal) {
-            closeBtn.click(); // Trigger the close button's click handler
+            closeBtn.click();
         }
     });
 
-    // Optional: Close modal with Escape key
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && detailsModal.classList.contains('active')) {
             closeBtn.click();
         }
     });
 
-    // --- New Background Image Logic ---
-    const bgLayers = document.querySelectorAll('.bg-layer');
-    let currentBgIndex = 0;
-    const cycleInterval = 5000; // Time in ms (5 seconds)
-    const mouseMoveStrength = 15; // How much the background moves with the mouse
-
-    // Function to switch background
-    function switchBackground() {
-        const nextBgIndex = (currentBgIndex + 1) % bgLayers.length;
-
-        bgLayers[currentBgIndex].classList.remove('visible');
-        bgLayers[nextBgIndex].classList.add('visible');
-
-        currentBgIndex = nextBgIndex;
-    }
-
-    // Initial setup
-    if (bgLayers.length > 0) {
-        bgLayers[currentBgIndex].classList.add('visible');
-        setInterval(switchBackground, cycleInterval);
-    }
-
-    // Mouse move effect
+    // Mouse move effect for video background
     window.addEventListener('mousemove', (e) => {
-        if (bgLayers.length > 0) {
-            const currentLayer = bgLayers[currentBgIndex];
-            const xPos = (e.clientX / window.innerWidth - 0.5) * mouseMoveStrength;
-            const yPos = (e.clientY / window.innerHeight - 0.5) * mouseMoveStrength;
+        const xPos = (e.clientX / window.innerWidth - 0.5) * mouseMoveStrength;
+        const yPos = (e.clientY / window.innerHeight - 0.5) * mouseMoveStrength;
 
-            // Apply the transform to the *currently visible* layer
-            // Note: We invert the values slightly (-xPos, -yPos) so the background moves opposite to the mouse
-            currentLayer.style.transform = `translate(${-xPos}px, ${-yPos}px)`;
+        if (bgVideo && bgVideo.parentElement) {
+            bgVideo.parentElement.style.transform = `translate(${-xPos}px, ${-yPos}px)`;
         }
+    });
+
+    // Grained.js Initialization
+    function initGrainedTexture() {
+        const options = {
+            animate: true,
+            patternWidth: 200,
+            patternHeight: 200,
+            grainDensity: 3,
+            grainWidth: 1,
+            grainHeight: 1,
+            grainOpacity: window.matchMedia("(min-width: 992px)").matches ? 0.35 : 0.15
+        };
+
+        if (document.getElementById('grain-overlay')) {
+            grained('#grain-overlay', options);
+        }
+    }
+
+    initGrainedTexture();
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(initGrainedTexture, 250);
     });
 });

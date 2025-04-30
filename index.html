@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoSecure - Automated Penetration Testing</title>
+    <title>AutoSecure</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+    <link rel="manifest" href="assets/site.webmanifest">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -11,13 +15,24 @@
 </head>
 <body>
     <div class="background-layers">
-        <div class="bg-layer" id="bg-layer-1" style="background-image: url('assets/bg1.jpg');"></div>
-        <div class="bg-layer" id="bg-layer-2" style="background-image: url('assets/bg2.jpg');"></div>
-        <div class="bg-layer" id="bg-layer-3" style="background-image: url('assets/bg3.jpg');"></div>
+        <div class="bg-layer visible">
+            <video autoplay loop muted playsinline id="bg-video">
+                <source src="assets/bg.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="grain-overlay" id="grain-overlay"></div>
     </div>
 
     <div class="top-bar">
-        <div class="top-title">AutoSecure</div>
+        <div class="logo">
+            <img src="assets/autosecure-logo-white.png" alt="AutoSecure Logo">
+        </div>
+        <div class="top-title" id="title-trigger">AutoSecure
+            <div class="info-card">
+                <h3>AutoSecure</h3>
+                <p>An advanced cybersecurity pentesting toolkit that automates complex security assessments, streamlining time-intensive tasks for faster and more efficient vulnerability detection and analysis.</p>
+            </div>
+        </div>
         <div class="top-year">2025</div>
     </div>
 
@@ -71,12 +86,18 @@
         </div>
 
         <div class="feature-details" id="wifi-testing">
-             <div class="detail-header">FEATURE PROFILE</div>
+            <div class="detail-header">FEATURE PROFILE</div>
             <h2>WiFi Network Testing</h2>
             <div class="detail-body">
-                <p>Analyzes the security posture of wireless networks:</p>
+                <p>Comprehensive wireless network security assessment toolkit featuring advanced detection and analysis capabilities:</p>
                 <ul>
-                    <li><em>[Placeholder: Detailed WiFi testing capabilities description coming soon. E.g., Checks for weak passwords, vulnerable protocols, rogue access points, etc.]</em></li>
+                    <li>Network Discovery & Analysis: Advanced scanning engine identifies all nearby wireless networks, providing detailed encryption protocols and security configurations.</li>
+                    <li>Security Threat Detection: Sophisticated algorithms detect malicious access points, including SSID spoofing attempts and vendor mismatches that could indicate potential honeypots.</li>
+                    <li>Encryption Vulnerability Assessment: In-depth analysis of network security protocols, highlighting networks using deprecated standards like WEP or weak WPA configurations.</li>
+                    <li>Network Device Enumeration: Multi-protocol device discovery using advanced techniques including ARP scanning, Nmap integration, and wireless packet analysis.</li>
+                    <li>Advanced Device Profiling: Detailed fingerprinting system reveals operating systems, device categories, active services, and manufacturer information of connected devices.</li>
+                    <li>ARP Security Analysis: Identifies devices susceptible to ARP-based attacks, including spoofing vulnerabilities and potential hijacking vectors.</li>
+                    <li>Router Security Assessment: Comprehensive evaluation of network infrastructure, including admin interface security, port scanning, and authentication strength testing.</li>
                 </ul>
             </div>
         </div>
@@ -97,11 +118,19 @@
             <div class="detail-header">FEATURE PROFILE</div>
             <h2>AI-Powered Vulnerability Analysis</h2>
             <div class="detail-body">
-                <p>AutoSecure incorporates an AI engine to provide deeper insights into discovered vulnerabilities:</p>
+                <p>Advanced threat detection and analysis powered by locally-hosted LLaMA 3 AI model with real-time NVD integration:</p>
                 <ul>
-                    <li>Analyzes scan results to identify and correlate potential threats.</li>
-                    <li>Provides relevant CVE (Common Vulnerabilities and Exposures) details for identified issues.</li>
-                    <li>Offers actionable suggestions and best practices for remediation to help fix the vulnerabilities effectively.</li>
+                    <li>Real-Time Threat Intelligence: Direct integration with the National Vulnerability Database (NVD) for live vulnerability data, including CVE details, severity indicators, and risk scores.</li>
+                    <li>Comprehensive Vulnerability Profiling: Detailed analysis including severity ratings with visual indicators, CWE classifications, and full vulnerability descriptions with reference links.</li>
+                    <li>Offline-Capable AI Analysis: Locally hosted LLaMA 3 model ensures secure, private, and instantaneous vulnerability assessment without external dependencies.</li>
+                    <li>Automated Remediation Guidance: AI-generated expert remediation steps including:
+                        <ul>
+                            <li>Specific patch recommendations</li>
+                            <li>Detection and verification commands</li>
+                            <li>Strategic mitigation approaches</li>
+                        </ul>
+                    </li>
+                    <li>Real-Time Processing: Instant analysis and response generation, enabling immediate security decision-making and rapid vulnerability management.</li>
                 </ul>
             </div>
         </div>
@@ -109,6 +138,8 @@
 
     </div> <!-- /container -->
 
+    <!-- Add Grained.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/grained@0.0.2/grained.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

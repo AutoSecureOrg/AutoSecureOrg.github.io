@@ -44,7 +44,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
+    z-index: 0;
     overflow: hidden;
 }
 
@@ -57,8 +57,22 @@ body {
     background-size: cover;
     background-position: center;
     opacity: 0;
-    transition: opacity 1s ease-in-out, transform 0.2s linear; /* Opacity fade + quick transform */
+    transition: opacity 1s ease-in-out, transform 0.2s linear;
     will-change: transform, opacity;
+}
+
+/* Video Background Styling */
+.bg-layer video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#bg-layer-3 {
+    overflow: hidden;
 }
 
 .bg-layer.visible {
@@ -67,13 +81,13 @@ body {
 
 /* Top Bar Elements */
 .top-bar {
-    position: fixed; /* Keep at top */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     padding: 1rem 2rem;
     display: flex;
-    justify-content: center; /* Center title */
+    justify-content: center;
     align-items: center;
     z-index: 100;
     pointer-events: none;
@@ -85,16 +99,95 @@ body {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    pointer-events: auto; /* Make text clickable if needed */
+    pointer-events: auto;
 }
 
 .top-title {
     text-align: center;
+    position: relative;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.top-title::before {
+    content: 'AutoSecure';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.top-title:hover::before {
+    opacity: 1;
+    animation: glitch 0.3s infinite;
+    color: var(--accent-color);
+}
+
+.top-title:hover {
+    color: transparent;
 }
 
 .top-year {
     position: absolute;
     right: 2rem;
+}
+
+/* Info Card Styling */
+.info-card {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: rgba(17, 17, 17, 0.95);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    width: max-content;
+    max-width: 300px;
+    border-radius: 4px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
+    text-transform: none;
+    margin-top: 1rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+}
+
+.info-card::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 12px;
+    height: 12px;
+    background: rgba(17, 17, 17, 0.95);
+    border-left: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-color);
+}
+
+.info-card h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent-color);
+}
+
+.info-card p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-color);
+    font-weight: 400;
+}
+
+.top-title:hover .info-card {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0s;
 }
 
 /* Main Content Container */
@@ -109,7 +202,22 @@ body {
     overflow-y: auto;
 }
 
-/* Feature Navigation List - Centered */
+/* Logo Styling */
+.logo {
+    position: absolute;
+    top: 1rem;
+    left: 2rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 8rem;
+    width: auto;
+}
+
+/* Feature Navigation List - With Glitch Effect */
 .feature-nav {
     text-align: center;
     max-width: 800px;
@@ -129,15 +237,43 @@ body {
     text-decoration: none;
     font-weight: 600;
     display: inline-block;
-    transition: color 0.3s ease;
+    transition: transform 0.3s ease, color 0.3s ease;
     line-height: 1.2;
-    /* Optional: Add subtle text shadow */
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    position: relative;
 }
 
 .feature-nav a:hover {
     color: var(--accent-color);
-    /* Remove the translateX effect */
+    transform: translateX(10px);
+    animation: glitch 0.3s infinite;
+}
+
+@keyframes glitch {
+    0% {
+        transform: translateX(10px) skew(0deg);
+        text-shadow: -2px 0 var(--accent-color);
+    }
+    20% {
+        transform: translateX(10px) skew(-2deg);
+        text-shadow: 2px 0 #ff00ff;
+    }
+    40% {
+        transform: translateX(10px) skew(2deg);
+        text-shadow: -2px 0 #00ffff;
+    }
+    60% {
+        transform: translateX(10px) skew(0deg);
+        text-shadow: 2px 2px var(--accent-color);
+    }
+    80% {
+        transform: translateX(10px) skew(-1deg);
+        text-shadow: -2px -1px #ff00ff;
+    }
+    100% {
+        transform: translateX(10px) skew(0deg);
+        text-shadow: 1px 0 #00ffff;
+    }
 }
 
 /* Details Modal Overlay */
@@ -169,6 +305,7 @@ body {
     background-color: var(--modal-bg);
     padding: 2rem; /* Padding inside the card */
     border: 1px solid var(--border-color);
+    border-radius: 1rem;
     max-width: 700px; /* Max width of the card */
     width: 100%; /* Responsive width */
     position: relative;
@@ -289,6 +426,16 @@ body {
         top: 0.8rem;
         right: 0.8rem;
     }
+    .logo {
+        left: 1rem;
+    }
+    .logo img {
+        height: 1.5rem;
+    }
+    .info-card {
+        max-width: 250px;
+        padding: 1rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -310,4 +457,36 @@ body {
      .detail-body p, .detail-body li {
         font-size: 0.9rem;
      }
+    .logo img {
+        height: 1.2rem;
+    }
+    .feature-nav a:hover {
+        transform: translateX(5px);
+    }
+    .info-card {
+        max-width: 200px;
+        font-size: 0.8rem;
+    }
+    .info-card h3 {
+        font-size: 0.9rem;
+    }
+    .info-card p {
+        font-size: 0.8rem;
+    }
+}
+
+/* Grain Overlay */
+.grain-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.container {
+    z-index: 10; /* Ensure this is above the background-layers */
 }
