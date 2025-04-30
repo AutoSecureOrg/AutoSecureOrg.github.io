@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoSecure - Automated Penetration Testing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-layers">
+        <div class="bg-layer" id="bg-layer-1" style="background-image: url('assets/bg1.jpg');"></div>
+        <div class="bg-layer" id="bg-layer-2" style="background-image: url('assets/bg2.jpg');"></div>
+        <div class="bg-layer" id="bg-layer-3" style="background-image: url('assets/bg3.jpg');"></div>
+    </div>
+
+    <div class="top-bar">
+        <div class="top-title">AutoSecure</div>
+        <div class="top-year">2025</div>
+    </div>
+
+    <div class="container">
+        <nav class="feature-nav">
+            <ul>
+                <li><a href="#" data-target="system-testing">System Testing</a></li>
+                <li><a href="#" data-target="web-testing">Web Application Testing</a></li>
+                <li><a href="#" data-target="wifi-testing">WiFi Network Testing</a></li>
+                <li><a href="#" data-target="mobile-testing">Mobile Application Testing</a></li>
+                <li><a href="#" data-target="ai-analysis">AI-Powered Analysis</a></li>
+            </ul>
+        </nav>
+
+        <!-- Details Modal -->
+        <div class="details-modal" id="details-modal">
+            <div class="modal-content" id="modal-content">
+                 <!-- Feature details will be loaded here -->
+                 <div id="details-content-container"></div>
+                 <button class="close-btn" id="close-btn">CLOSE</button>
+            </div>
+        </div>
+
+        <!-- Hidden Feature Details (content sources) -->
+        <div class="feature-details" id="system-testing">
+            <div class="detail-header">FEATURE PROFILE</div>
+            <h2>System Testing</h2>
+            <!-- Add other meta info if needed, similar to the reference -->
+            <div class="detail-body">
+                <p>Comprehensive testing for system-level vulnerabilities:</p>
+                <ul>
+                    <li>Checks for open ports and identifies running services.</li>
+                    <li>Leverages the Metasploit Framework for automated exploitation.</li>
+                    <li>Offers <strong>Lite Testing</strong> for quick scans and <strong>Deep Testing</strong> for thorough analysis.</li>
+                    <li>Allows users to upload and integrate their own custom exploits.</li>
+                    <li>Supports testing on a single host or a range of IP addresses.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="feature-details" id="web-testing">
+            <div class="detail-header">FEATURE PROFILE</div>
+            <h2>Web Application Testing</h2>
+            <div class="detail-body">
+                <p>Dedicated module for uncovering web vulnerabilities:</p>
+                <ul>
+                    <li>Detects common flaws like SQL Injection, Cross-Site Scripting (XSS), Command Injection, and HTML Injection.</li>
+                    <li>Supports uploading custom payloads to test for specific vulnerabilities or bypass filters.</li>
+                </ul>
+             </div>
+        </div>
+
+        <div class="feature-details" id="wifi-testing">
+             <div class="detail-header">FEATURE PROFILE</div>
+            <h2>WiFi Network Testing</h2>
+            <div class="detail-body">
+                <p>Analyzes the security posture of wireless networks:</p>
+                <ul>
+                    <li><em>[Placeholder: Detailed WiFi testing capabilities description coming soon. E.g., Checks for weak passwords, vulnerable protocols, rogue access points, etc.]</em></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="feature-details" id="mobile-testing">
+            <div class="detail-header">FEATURE PROFILE</div>
+            <h2>Mobile Application Testing (Android)</h2>
+            <div class="detail-body">
+                <p>Static and dynamic analysis for Android applications:</p>
+                <ul>
+                    <li>Analyzes uploaded APK files for known vulnerabilities, insecure configurations, and malicious code patterns.</li>
+                    <li>Identifies issues related to data storage, permissions, and communication.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="feature-details" id="ai-analysis">
+            <div class="detail-header">FEATURE PROFILE</div>
+            <h2>AI-Powered Vulnerability Analysis</h2>
+            <div class="detail-body">
+                <p>AutoSecure incorporates an AI engine to provide deeper insights into discovered vulnerabilities:</p>
+                <ul>
+                    <li>Analyzes scan results to identify and correlate potential threats.</li>
+                    <li>Provides relevant CVE (Common Vulnerabilities and Exposures) details for identified issues.</li>
+                    <li>Offers actionable suggestions and best practices for remediation to help fix the vulnerabilities effectively.</li>
+                </ul>
+            </div>
+        </div>
+        <!-- End Hidden Feature Details -->
+
+    </div> <!-- /container -->
+
+    <script src="script.js"></script>
+</body>
+</html>
