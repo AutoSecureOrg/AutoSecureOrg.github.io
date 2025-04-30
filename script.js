@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const titleTrigger = document.getElementById('title-trigger');
     let activeLink = null;
     let isTouchDevice = false;
+    let touchTimeout = null;
 
     // Detect touch device
     window.addEventListener('touchstart', function onFirstTouch() {
@@ -20,15 +21,18 @@ document.addEventListener('DOMContentLoaded', () => {
         // Handle click/touch for modal
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const targetId = link.getAttribute('data-target');
-            const sourceContentElement = document.getElementById(targetId);
+            // Only handle click for desktop or after animation for mobile
+            if (!isTouchDevice || link.classList.contains('show-card')) {
+                const targetId = link.getAttribute('data-target');
+                const sourceContentElement = document.getElementById(targetId);
 
-            if (sourceContentElement) {
-                const clonedContent = sourceContentElement.cloneNode(true);
-                clonedContent.style.display = 'block';
-                detailsContentContainer.innerHTML = '';
-                detailsContentContainer.appendChild(clonedContent);
-                detailsModal.classList.add('active');
+                if (sourceContentElement) {
+                    const clonedContent = sourceContentElement.cloneNode(true);
+                    clonedContent.style.display = 'block';
+                    detailsContentContainer.innerHTML = '';
+                    detailsContentContainer.appendChild(clonedContent);
+                    detailsModal.classList.add('active');
+                }
             }
         });
 
@@ -36,17 +40,31 @@ document.addEventListener('DOMContentLoaded', () => {
         if ('ontouchstart' in window) {
             link.addEventListener('touchstart', (e) => {
                 e.preventDefault();
-                if (activeLink) {
-                    activeLink.classList.remove('active');
+
+                // Clear any existing timeouts
+                if (touchTimeout) {
+                    clearTimeout(touchTimeout);
                 }
-                link.classList.add('active');
+
+                // Remove classes from previously active elements
+                if (activeLink) {
+                    activeLink.classList.remove('glitch-only', 'show-card');
+                }
+                if (titleTrigger.classList.contains('show-card')) {
+                    titleTrigger.classList.remove('glitch-only', 'show-card');
+                }
+
+                // Start glitch animation
+                link.classList.add('glitch-only');
                 activeLink = link;
 
-                // Remove active class after animation
-                setTimeout(() => {
-                    link.classList.remove('active');
-                    activeLink = null;
-                }, 300);
+                // After glitch animation, show card
+                touchTimeout = setTimeout(() => {
+                    link.classList.remove('glitch-only');
+                    link.classList.add('show-card');
+                    // Trigger click event after showing card
+                    link.click();
+                }, 1000);
             });
         }
     });
@@ -55,12 +73,35 @@ document.addEventListener('DOMContentLoaded', () => {
     if ('ontouchstart' in window) {
         titleTrigger.addEventListener('touchstart', (e) => {
             e.preventDefault();
-            titleTrigger.classList.add('active');
 
-            // Remove active class after animation
-            setTimeout(() => {
-                titleTrigger.classList.remove('active');
-            }, 300);
+            // Clear any existing timeouts
+            if (touchTimeout) {
+                clearTimeout(touchTimeout);
+            }
+
+            // Remove classes from previously active elements
+            if (activeLink) {
+                activeLink.classList.remove('glitch-only', 'show-card');
+                activeLink = null;
+            }
+            titleTrigger.classList.remove('glitch-only', 'show-card');
+
+            // Start glitch animation
+            titleTrigger.classList.add('glitch-only');
+
+            // After glitch animation, show info card
+            touchTimeout = setTimeout(() => {
+                titleTrigger.classList.remove('glitch-only');
+                titleTrigger.classList.add('show-card');
+            }, 1000);
+        });
+
+        // Add touch event to close info card when touching outside
+        document.addEventListener('touchstart', (e) => {
+            if (titleTrigger.classList.contains('show-card') &&
+                !titleTrigger.contains(e.target)) {
+                titleTrigger.classList.remove('glitch-only', 'show-card');
+            }
         });
     }
 
