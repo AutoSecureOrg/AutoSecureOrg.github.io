@@ -202,6 +202,10 @@ body {
     overflow-y: auto;
 }
 
+.feature-nav {
+    text-align: left !important;
+}
+
 /* Logo Styling */
 .logo {
     position: absolute;
