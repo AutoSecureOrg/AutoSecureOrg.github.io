@@ -50,7 +50,6 @@
         <!-- Details Modal -->
         <div class="details-modal" id="details-modal">
             <div class="modal-content" id="modal-content">
-                 <!-- Feature details will be loaded here -->
                  <div id="details-content-container"></div>
                  <button class="close-btn" id="close-btn">CLOSE</button>
             </div>
@@ -60,7 +59,6 @@
         <div class="feature-details" id="system-testing">
             <div class="detail-header">FEATURE PROFILE</div>
             <h2>System Testing</h2>
-            <!-- Add other meta info if needed, similar to the reference -->
             <div class="detail-body">
                 <p>Comprehensive testing for system-level vulnerabilities:</p>
                 <ul>
@@ -104,15 +102,20 @@
 
         <div class="feature-details" id="mobile-testing">
             <div class="detail-header">FEATURE PROFILE</div>
-            <h2>Mobile Application Testing (Android)</h2>
+            <h2>Mobile Application Testing</h2>
             <div class="detail-body">
-                <p>Static and dynamic analysis for Android applications:</p>
+                <p>Static and dynamic analysis for Mobile App Code & Android application (APKs):</p>
                 <ul>
-                    <li>Analyzes uploaded Mobile App Code for known vulnerabilities, insecure configurations, and malicious code patterns.</li>
+                    <li>Analyzes uploaded Mobile App Code and APK files for known vulnerabilities, insecure configurations, and malicious code patterns.</li>
                     <li>Detects hardcoded secrets and sensitive information leakage.</li>
                     <li>Identifies excessive application permissions.</li>
                     <li>Checks for insecure network communication practices.</li>
                     <li>Scans for known malware signatures and potentially harmful code.</li>
+                    <li>Analyzes APK files for requested permissions and maps them to potential privacy risks.</li>
+                    <li>Detects insecure data storage practices (e.g., world-readable/writable files).</li>
+                    <li>Identifies weak cryptographic implementations.</li>
+                    <li>Checks for potential intent vulnerabilities (e.g., broadcast theft, intent spoofing).</li>
+                    <li>Flags potentially malicious behaviors like dynamic code loading or SMS manipulation.</li>
                 </ul>
             </div>
         </div>
